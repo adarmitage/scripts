@@ -4,8 +4,8 @@
 # 	Initialise values	#
 #########################
 
-$F_READ='P.cact_411_1M_F.fastq.gz'
-$R_READ='P.cact_411_1M_R.fastq.gz'
+F_READ='P.cact_411_1M_F.fastq.gz'
+R_READ='P.cact_411_1M_R.fastq.gz'
 
 $F_TRIM=(echo $F_READ | tr -d '.gz')
 $R_TRIM=(echo $F_READ | tr -d '.gz')
