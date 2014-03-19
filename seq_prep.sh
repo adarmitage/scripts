@@ -72,7 +72,7 @@ EST_COV_EXT=$(count_nucl.pl -i $EXTENDED_READ_TRIM -g 65 | tail -n1 | cut -d ' '
 
 EST_COV_REMAINDER=$(count_nucl.pl -i P.cact_411_1M_F.fastq -i P.cact_411_1M_R.fastq -g 65 | tail -n1 | cut -d ' ' -f10)
 
-COVERAGE=$(( $EST_COV_EXT + $EST_COV_REMAINDER ))
+COVERAGE=$(perl -e '$sum=$ARGV[0]+$ARGV[1]; print "$sum\n";exit;' $EST_COV_EXT $EST_COV_REMAINDER)
 echo ""
 echo "the estimated coverage of the extended sequences is: $EST_COV_EXT"
 echo "the estimated coverage of the forward and reverse reads is: $EST_COV_REMAINDER"
@@ -81,7 +81,7 @@ echo "the estimated combined coverage is: $COVERAGE"
 
 
 #######  Step 5	 ########
-# 		Cleanup			#
+# 	Cleanup		#
 #########################
 
 
