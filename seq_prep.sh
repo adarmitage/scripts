@@ -1,11 +1,15 @@
 #!/bin/bash
 
+# Script to prepare data for genome assembly including
+#  flash-extending reads, trimming and estimating coverage
+# Usage: seq_prep.sh <F_read.fastq.gz> <R_read.fastq.gz>
+
 #######  Step 1	 ########
 # Initialise values	#
 #########################
 
-F_READ_ZIP='P.cact_411_1M_F.fastq.gz'
-R_READ_ZIP='P.cact_411_1M_R.fastq.gz'
+F_READ_ZIP=$1
+R_READ_ZIP=$2
 
 F_READ=$(echo $F_READ_ZIP | sed 's/.gz//')
 R_READ=$(echo $R_READ_ZIP | sed 's/.gz//')
@@ -20,7 +24,7 @@ EXTENDED_READ_TRIM="$FLASH_OUTFILES""_ext_trim.fastq"
 F_REMAINDER_TRIM="$FLASH_OUTFILES""_F_trim.fastq"
 R_REMAINDER_TRIM="$FLASH_OUTFILES""_R_trim.fastq"
 
-ILLUMINA_ADAPTERS=illumina_full_adapters.fa
+ILLUMINA_ADAPTERS=/home/armita/idris/scripts/illumina_full_adapters.fa
 
 echo "your compressed forward read is: $F_READ_ZIP"
 echo "your compressed reverse read is: $R_READ_ZIP"
