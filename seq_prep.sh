@@ -8,13 +8,16 @@
 # Initialise values	#
 #########################
 
-F_READ_ZIP=$1
-R_READ_ZIP=$2
+F_IN=$1
+R_IN=$2
+
+F_READ_ZIP=$(echo $F_IN | sed 's/.fastq.gz/.copy.fastq.gz/')
+R_READ_ZIP=$(echo $R_IN | sed 's/.fastq.gz/.copy.fastq.gz/')
 
 F_READ=$(echo $F_READ_ZIP | sed 's/.gz//')
 R_READ=$(echo $R_READ_ZIP | sed 's/.gz//')
 
-FLASH_OUTFILES=$(echo $F_READ | sed 's/_F.fastq//')
+FLASH_OUTFILES=$(echo $F_READ | sed 's/_F.copy.fastq//')
 
 EXTENDED_READ=$FLASH_OUTFILES.extendedFrags.fastq
 F_REMAINDER=$FLASH_OUTFILES.notCombined_1.fastq
@@ -26,8 +29,8 @@ R_REMAINDER_TRIM="$FLASH_OUTFILES""_R_trim.fastq"
 
 ILLUMINA_ADAPTERS=/home/armita/idris/scripts/illumina_full_adapters.fa
 
-echo "your compressed forward read is: $F_READ_ZIP"
-echo "your compressed reverse read is: $R_READ_ZIP"
+echo "your compressed forward read is: $F_IN"
+echo "your compressed reverse read is: $R_IN"
 	echo ""
 echo "your forward read is: $F_READ"
 echo "your reverse read is: $R_READ"
@@ -47,6 +50,10 @@ echo "your trimmed reverse reads will be stored in the file $R_REMAINDER_TRIM"
 #######  Step 2	 ########
 # 	unzip reads			#
 #########################
+
+
+cp $F_IN $F_READ_ZIP
+cp $R_IN $R_READ_ZIP
 
 gunzip $F_READ_ZIP
 gunzip $R_READ_ZIP
@@ -74,7 +81,7 @@ fastq-mcf $ILLUMINA_ADAPTERS $F_REMAINDER $R_REMAINDER -o $F_REMAINDER_TRIM -o $
 
 EST_COV_EXT=$(count_nucl.pl -i $EXTENDED_READ_TRIM -g 65 | tail -n1 | cut -d ' ' -f10)
 
-EST_COV_REMAINDER=$(count_nucl.pl -i P.cact_411_1M_F.fastq -i P.cact_411_1M_R.fastq -g 65 | tail -n1 | cut -d ' ' -f10)
+EST_COV_REMAINDER=$(count_nucl.pl -i $F_REMAINDER_TRIM -i $R_REMAINDER_TRIM -g 65 | tail -n1 | cut -d ' ' -f10)
 
 COVERAGE=$(perl -e '$sum=$ARGV[0]+$ARGV[1]; print "$sum\n";exit;' $EST_COV_EXT $EST_COV_REMAINDER)
 echo ""
@@ -88,5 +95,7 @@ echo "the estimated combined coverage is: $COVERAGE"
 # 	Cleanup		#
 #########################
 
+rm $F_READ
+rm $R_READ
 
-
+rm $FLASH_OUTFILES.*
