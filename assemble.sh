@@ -9,7 +9,7 @@ REVERSE_FILE=$4
 ASSEMBLY_NAME=$5
 EXP_COV=$6
 COV_CUT=$7
-WORK_DIR=TMPDIR
+WORK_DIR=$TMPDIR
 
 echo "Hash length is $HASH_LENGTH"
 echo "Forward file is $FORWARD_FILE"

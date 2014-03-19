@@ -1,4 +1,8 @@
 #!/bin/bash
+#$ -S /bin/bash
+#$ -cwd
+#$ -pe smp 4
+#$ -l virtual_free=4G
 
 # Script to prepare data for genome assembly including
 #  flash-extending reads, trimming and estimating coverage
