@@ -1,8 +1,10 @@
 #!/bin/bash
 #$ -S /bin/bash
 #$ -cwd
-#$ -pe smp 4
-#$ -l virtual_free=4G
+#$ -pe smp 16
+#$ -l virtual_free=5G
+#$ -M andrew.armitage@emr.ac.uk
+#$ -m abe
 
 # Script to prepare data for genome assembly including
 #  flash-extending reads, trimming and estimating coverage
@@ -31,7 +33,7 @@ EXTENDED_READ_TRIM="$ASSEMBLY_NAME""_ext_trim.fastq"
 F_REMAINDER_TRIM="$ASSEMBLY_NAME""_F_trim.fastq"
 R_REMAINDER_TRIM="$ASSEMBLY_NAME""_R_trim.fastq"
 
-ILLUMINA_ADAPTERS=/home/armita/idris/scripts/illumina_adapters.fa
+ILLUMINA_ADAPTERS=/home/armita/idris/scripts/illumina_full_adapters.fa
 
 echo "your compressed forward read is: $F_IN"
 echo "your compressed reverse read is: $R_IN"
