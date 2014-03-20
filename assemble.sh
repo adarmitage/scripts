@@ -35,8 +35,10 @@ MAX_CONTIG=$( grep 'Max_contig' $ASSEMBLY_NAME.$HASH_LENGTH/stats.txt | cut -f2 
 echo "storing the maximum conitg size: $MAX_CONTIG"
 
 NO_CONTIG=$(grep 'Number of conitgs' $ASSEMBLY_NAME.$HASH_LENGTH/stats.txt | head -n1 | cut -f6 -d' ' )
+echo "storing the number of conitgs: $NO_CONTIG"
 
 NO_BP=$(grep 'Number of bases' $ASSEMBLY_NAME.$HASH_LENGTH/stats.txt | head -n1 | cut -f4 -d' ' )
+echo "storing the size of the assembled genome: $NO_BP"
 
 echo "$ASSEMBLY_NAME	$EXP_COV	$HASH_LENGTH	$N50	$MAX_CONTIG	$NO_CONTIG	$NO_BP" >> "$ASSEMBLY_NAME"_stats.txt
 

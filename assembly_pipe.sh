@@ -118,3 +118,8 @@ for HASH_LENGTH in $( seq 41 10 101 ); do
 done
 
 
+#######  Step 8  ########
+#       Cleanup         #
+#########################
+
+gzip *.fastq
